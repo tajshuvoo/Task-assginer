@@ -11,8 +11,9 @@ const taskSchema = new mongoose.Schema({
         required: true
     },
     taskCreatedBy: {
-        type: Date,
-        default: Date.now
+        type: String, // Storing creator's email
+        required: true,
+        trim: true
     },
     taskAssignedTo: [{
         type: String, // Storing User emails

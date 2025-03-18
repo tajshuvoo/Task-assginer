@@ -43,6 +43,7 @@ const seedData = async () => {
         await Task.create({
             taskName: "Hardcoded Email Task",
             taskDescription: "This task is assigned using a hardcoded email.",
+            taskCreatedBy: sampleEmail,
             taskAssignedTo: [sampleEmail], // Assigning task to hardcoded email
             taskProgress: "In progress"
         });
