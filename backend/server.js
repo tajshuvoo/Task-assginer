@@ -19,7 +19,7 @@ const app = express();
 // Middleware
 app.use(express.json()); // Allows parsing of JSON request bodies
 app.use(express.urlencoded({ extended: true }));
-app.use(cors({ credentials: true, origin: process.env.CLIENT_URL })); // Enables Cross-Origin Resource Sharing
+app.use(cors());  
 app.use(cookieParser()); // Allows parsing of cookies
 
 // Simple API route
