@@ -29,4 +29,46 @@ const loginUser = async (req, res) => {
 
 
 
-export { loginUser  };
+// @desc    Register a new user
+// @route   POST /api/auth/signup
+// @access  Public
+const registerUser = async (req, res) => {
+    const { username, email, password } = req.body;
+
+    // Simple validation
+    if (!username || !email || !password) {
+        return res.status(400).json({ message: 'Please enter all fields' });
+    }
+
+    try {
+        // Check if user already exists
+        let user = await User.findOne({ email });
+        if (user) {
+            return res.status(400).json({ message: 'User already exists' });
+        }
+
+        // Create new user
+        user = new User({
+            username,
+            email,
+            password // Password will be hashed in the pre-save hook
+        });
+
+        // Save user to database
+        await user.save();
+
+        // Generate token and set it in the response
+        generateToken(res, user._id);
+
+        res.status(201).json({
+            _id: user._id,
+            username: user.username,
+            email: user.email,
+            isAdmin: user.isAdmin,
+        });
+    } catch (error) {
+        res.status(500).json({ message: 'Server error', error: error.message });
+    }
+};
+
+export { loginUser, registerUser };
