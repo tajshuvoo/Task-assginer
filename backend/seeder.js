@@ -26,16 +26,16 @@ const seedData = async () => {
         // Hardcoded email
         const sampleEmail = "sampleuser@example.com";
 
-        // Hash password
-        const hashedPassword = await bcrypt.hash("securepassword", 10);
-
         // Create a sample user
-        const user = await User.create({
+        const user = new User({
             email: sampleEmail,
-            password: hashedPassword,
+            password: "securepassword", // Plain password
             username: "SampleUser",
             isAdmin: true
         });
+
+        // Save user to trigger schema pre-save hook for password hashing
+        await user.save();
 
         console.log(`User Created: ${sampleEmail}`);
 
@@ -43,8 +43,8 @@ const seedData = async () => {
         await Task.create({
             taskName: "Hardcoded Email Task",
             taskDescription: "This task is assigned using a hardcoded email.",
-            taskCreatedBy: sampleEmail,
-            taskAssignedTo: [sampleEmail], // Assigning task to hardcoded email
+            taskCreatedBy: sampleEmail, // Reference user by email
+            taskAssignedTo: [sampleEmail], // Assign task to user by email
             taskProgress: "In progress"
         });
 
