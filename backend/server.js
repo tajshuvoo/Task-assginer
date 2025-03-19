@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import connectDB from './config/db.js';
+import taskRoutes from './routes/taskRoutes.js';
 
 // Import routes
 import authRoutes from './routes/authRoutes.js';
@@ -29,6 +30,8 @@ app.get('/', (req, res) => {
 
 // Register API routes
 app.use('/api/auth', authRoutes);
+
+app.use('/api/tasks', taskRoutes);
 
 // Define PORT and start the server
 const PORT = process.env.PORT || 8000;

@@ -6,6 +6,7 @@ const router = express.Router();
 router.post('/login', loginUser); // Route for login
 router.post('/signup', registerUser); // Route for signup
 router.post('/logout',protect, logoutUser); // Route for logout
+
 //bug solved
 
 export default router;
