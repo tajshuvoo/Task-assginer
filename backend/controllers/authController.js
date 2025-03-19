@@ -81,4 +81,18 @@ const logoutUser = (req, res) => {
     res.status(200).json({ message: 'Logged out successfully' });
 };
 
-export { loginUser, registerUser, logoutUser };
+// @desc    Fetch all user emails
+// @route   GET /api/auth/emails
+// @access  Private/Admin
+const getAllUserEmails = async (req, res) => {
+    try {
+        const users = await User.find({}, 'email'); // Fetch only the email field
+        const emails = users.map(user => user.email);
+
+        res.status(200).json(emails);
+    } catch (error) {
+        res.status(500).json({ message: 'Server error', error: error.message });
+    }
+};
+
+export { loginUser, registerUser, logoutUser, getAllUserEmails };
