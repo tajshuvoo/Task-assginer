@@ -27,8 +27,6 @@ const loginUser = async (req, res) => {
     }
 };
 
-
-
 // @desc    Register a new user
 // @route   POST /api/auth/signup
 // @access  Public
@@ -71,4 +69,16 @@ const registerUser = async (req, res) => {
     }
 };
 
-export { loginUser, registerUser };
+// @desc    Logout user & clear cookie
+// @route   POST /api/auth/logout
+// @access  Public
+const logoutUser = (req, res) => {
+    res.cookie('jwt', '', {
+        httpOnly: true,
+        expires: new Date(0), // Expire the cookie immediately
+    });
+
+    res.status(200).json({ message: 'Logged out successfully' });
+};
+
+export { loginUser, registerUser, logoutUser };
