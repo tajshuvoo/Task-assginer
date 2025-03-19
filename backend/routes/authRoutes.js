@@ -9,4 +9,5 @@ router.post('/signup', registerUser); // Route for signup
 router.post('/logout',protect, logoutUser); // Route for logout
 router.get('/users', protect, getAllUserEmails); // Route to fetch all users
 
+
 export default router;
