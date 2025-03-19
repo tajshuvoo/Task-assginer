@@ -5,12 +5,15 @@ const generateToken = (res,id) => {
         expiresIn: '30d',
     });
 
-    res.cookie('jwt',token,{
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
-        maxAge: 30 * 24 * 60 * 60 * 1000,
-    })
+    // res.json('jwt',token,{
+    //     httpOnly: true,
+    //     secure: process.env.NODE_ENV === 'production',
+    //     sameSite: 'strict',
+    //     maxAge: 30 * 24 * 60 * 60 * 1000,
+    // })
+
+  // Return the token as a Bearer Token
+  res.json({ token: `Bearer ${token}` });
 };
 
 export default generateToken;

@@ -13,12 +13,12 @@ const loginUser = async (req, res) => {
         if (user && (await user.matchPassword(password))) {
             generateToken(res, user._id); // Set JWT in cookie
 
-            res.json({
-                _id: user._id,
-                username: user.username,
-                email: user.email,
-                isAdmin: user.isAdmin,
-            });
+            // res.json({
+            //     _id: user._id,
+            //     username: user.username,
+            //     email: user.email,
+            //     isAdmin: user.isAdmin,
+            // });
         } else {
             res.status(401).json({ message: 'Invalid email or password' });
         }

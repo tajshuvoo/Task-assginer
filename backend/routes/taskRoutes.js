@@ -29,12 +29,12 @@ router.get('/mytasks', protect, getMyTasks);
 router.get('/assignedtasks', protect, getAssignedTasks);
 
 // Route to get all tasks with pagination (Admin only)
-router.get('/', protect, admin, getAllTasks);
+router.get('/', protect, getAllTasks);
 
 // Route to get all completed tasks
-router.get('/completed', protect,admin, getCompletedTasks);
+router.get('/completed', protect, getCompletedTasks);
 
 // Route to get all active tasks
-router.get('/active', protect,admin, getActiveTasks);
+router.get('/active', protect, getActiveTasks);
 
 export default router;
