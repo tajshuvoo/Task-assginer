@@ -1,5 +1,5 @@
 import express from 'express';
-import { addTask, editTask } from '../controllers/taskController.js';
+import { addTask, editTask, deleteTask } from '../controllers/taskController.js';
 import { protect } from '../middleware/authmiddleware.js';
 
 const router = express.Router();
@@ -9,5 +9,8 @@ router.post('/addtask', protect, addTask);
 
 // Route to edit an existing task
 router.put('/:id', protect, editTask);
+
+// Route to delete a task
+router.delete('/:id', protect, deleteTask);
 
 export default router;
