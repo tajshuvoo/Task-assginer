@@ -11,14 +11,15 @@ const loginUser = async (req, res) => {
         const user = await User.findOne({ email });
 
         if (user && (await user.matchPassword(password))) {
-            generateToken(res, user._id); // Set JWT in cookie
+           const token = generateToken(res, user._id); // Set JWT in cookie
 
-            // res.json({
-            //     _id: user._id,
-            //     username: user.username,
-            //     email: user.email,
-            //     isAdmin: user.isAdmin,
-            // });
+            res.json({
+                _id: user._id,
+                username: user.username,
+                email: user.email,
+                isAdmin: user.isAdmin,
+                token: `Bearer ${token}`
+            });
         } else {
             res.status(401).json({ message: 'Invalid email or password' });
         }
@@ -56,13 +57,14 @@ const registerUser = async (req, res) => {
         await user.save();
 
         // Generate token and set it in the response
-        generateToken(res, user._id);
+        const token = generateToken(res, user._id); 
 
         res.status(201).json({
             _id: user._id,
             username: user.username,
             email: user.email,
             isAdmin: user.isAdmin,
+            token: `Bearer ${token}`
         });
     } catch (error) {
         res.status(500).json({ message: 'Server error', error: error.message });
@@ -73,12 +75,13 @@ const registerUser = async (req, res) => {
 // @route   POST /api/auth/logout
 // @access  Public
 const logoutUser = (req, res) => {
-    res.cookie('jwt', '', {
-        httpOnly: true,
-        expires: new Date(0), // Expire the cookie immediately
+    res.status(200).json({
+        _id: "",
+        username: "",
+        email: "",
+        isAdmin: false,
+        token: "Bearer "
     });
-
-    res.status(200).json({ message: 'Logged out successfully' });
 };
 
 // @desc    Fetch all user emails
