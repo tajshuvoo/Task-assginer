@@ -11,9 +11,9 @@ const generateToken = (res,id) => {
     //     sameSite: 'strict',
     //     maxAge: 30 * 24 * 60 * 60 * 1000,
     // })
-
+  return token;
   // Return the token as a Bearer Token
-  res.json({ token: `Bearer ${token}` });
+//   res.json({ token: `Bearer ${token}` });
 };
 
 export default generateToken;
